@@ -22,6 +22,16 @@ conn.once("open", () => {
 //Routes
 
 app.use("/url", urlRoutes);
+app.get("/proxy", async (req, res) => {
+  const url = req.query.url;
+  try {
+    const response = await axios.get(url);
+    console.log(response);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: "Error accessing URL" });
+  }
+});
 app.get("/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
   const entry = await URL.findOneAndUpdate(

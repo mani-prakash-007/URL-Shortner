@@ -15,7 +15,7 @@ export const generateShortUrlService = async (shortId, originalUrl) => {
   } catch (error) {
     return {
       statusCode: 400,
-      status: "short url generation failed",
+      status: "short url generation failed.Please Retry ",
       details: error,
     };
   }
