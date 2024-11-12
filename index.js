@@ -1,11 +1,19 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import mongoose from "mongoose";
 import { urlRoutes } from "./routes/urlRoutes.js";
 import URL from "./models/urlSchema.js";
 const app = express();
 const PORT = 3000;
 dotenv.config();
+
+// Allow requests from all
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 //Parsing Req.Body as Json and url enocded form
 app.use(express.json());
