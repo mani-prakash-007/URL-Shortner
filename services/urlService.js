@@ -1,17 +1,27 @@
+import { nanoid } from "nanoid";
 import URL from "../models/urlSchema.js";
 export const generateShortUrlService = async (shortId, originalUrl) => {
   console.log(shortId, originalUrl);
   try {
-    const shortURl = await URL.create({
-      shortURL: shortId,
-      originalURL: originalUrl,
-      visitHistory: [],
-    });
-    return {
-      statusCode: 200,
-      status: "short url generated..",
-      details: shortURl,
-    };
+    const urlExist = await URL.findOne({ originalURL: originalUrl });
+    if (urlExist) {
+      return {
+        statusCode: 409,
+        status: "Short URL exist for the Provided URL",
+        details: urlExist,
+      };
+    } else {
+      const shortURl = await URL.create({
+        shortURL: shortId,
+        originalURL: originalUrl,
+        visitHistory: [],
+      });
+      return {
+        statusCode: 200,
+        status: "short url generated..",
+        details: shortURl,
+      };
+    }
   } catch (error) {
     return {
       statusCode: 400,
@@ -22,7 +32,6 @@ export const generateShortUrlService = async (shortId, originalUrl) => {
 };
 
 export const getAnalyticsService = async (shortId) => {
-  console.log(shortId);
   try {
     const analyticsData = await URL.findOne({ shortURL: shortId });
 
