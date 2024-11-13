@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { urlRoutes } from "./routes/urlRoutes.js";
 import URL from "./models/urlSchema.js";
+import axios from "axios";
 const app = express();
 const PORT = 3000;
 dotenv.config();
@@ -34,7 +35,6 @@ app.get("/proxy", async (req, res) => {
   const url = req.query.url;
   try {
     const response = await axios.get(url);
-    console.log(response);
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ message: "Error accessing URL" });
