@@ -1,7 +1,5 @@
-import { nanoid } from "nanoid";
 import URL from "../models/urlSchema.js";
 export const generateShortUrlService = async (shortId, originalUrl) => {
-  console.log(shortId, originalUrl);
   try {
     const urlExist = await URL.findOne({ originalURL: originalUrl });
     if (urlExist) {

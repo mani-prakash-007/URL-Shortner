@@ -20,7 +20,6 @@ export const generateShortUrlController = async (req, res) => {
 
 export const getAnalyticsController = async (req, res) => {
   const shortId = req.params.shortId;
-  console.log(shortId);
   const analyticsResponse = await getAnalyticsService(shortId);
   res.status(analyticsResponse.statusCode).json({
     status: analyticsResponse.status,
